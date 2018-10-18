@@ -1,0 +1,14 @@
+.realm {
+    background-color: red;
+    border: 2px solid black;
+    height: 850px;
+    width: 1850px;
+    border-radius: 50px;
+}
+#pacman {
+    height: 50px;
+    width: 50px;
+    position: relative;
+    left: 20px;
+    top: 10px;
+}
