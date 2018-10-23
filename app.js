@@ -1,41 +1,101 @@
 $(document).ready(function () {
-    console.log('j querko has loaded');
-    
+
     $(document).on('keydown', handleTyping);
 
-    var pacman = {};
-    pacman.x = 20;
-    pacman.y = 5;
+    var score = 0;
 
-    $('#pacman').change(function () {
-        console.log(pacman, 'pacman')
-    });
-    
+    var pacman = {
+        x: 6,
+        y: 4
+    };
+
+    var ghost = {
+    };
+
     function handleTyping(event) {
-        let $pacmanImg =  $('#pacman');
-        console.log('typing', event.which, pacman, pacman.x > 0);
-        if (event.which === 37 && (pacman.x !== 0)) {
-            console.log('condition is fine')
-        } else {
-            console.log('it is not fine')
+        switch (event.which) {
+            case (37): // PACMAN MOVE LEFT
+                if (map[pacman.y][pacman.x-1] !== 1){
+                    map[pacman.y][pacman.x] = 3;
+                    pacman.x = pacman.x - 1;
+                    map[pacman.y][pacman.x] = 4;
+                    if ((map[pacman.y][pacman.x-1] === 2)) {
+                        score++
+                    }
+                    createWorld();
+                } break;
+            case (38): // PACMAN MOVE UP
+                if ( map[pacman.y-1][pacman.x] !== 1){
+                    map[pacman.y][pacman.x] = 3;
+                    pacman.y = pacman.y - 1;
+                    map[pacman.y][pacman.x] = 4;
+                    if ((map[pacman.y-1][pacman.x] === 2)) {
+                        score++
+                    }
+                    createWorld();
+                } break;
+            case (39): // PACMAN MOVE RIGHT
+                if ( map[pacman.y][pacman.x+1] !== 1){
+                    map[pacman.y][pacman.x] = 3;
+                    pacman.x = pacman.x + 1;
+                    map[pacman.y][pacman.x] = 4;
+                    if ((map[pacman.y][pacman.x+1] === 2)) {
+                        score++
+                    }
+                    createWorld();
+                } break;
+            case (40): // PACMAN MOVE DOWN
+                if ( map[pacman.y+1][pacman.x] !== 1){
+                    map[pacman.y][pacman.x] = 3;
+                    pacman.y = pacman.y + 1;
+                    map[pacman.y][pacman.x] = 4;
+                    if ((map[pacman.y+1][pacman.x] === 2)) {
+                        score++
+                    }
+                    createWorld();
+                } break;
         }
-        switch(event.which) {
-            case (37): $pacmanImg.css({
-                'left': (pacman.x -= 10) + 'px'
-            });
-                break;
-            case 38: $pacmanImg.css({
-                'top': (pacman.y -= 10) + 'px'
-            });
-                break;
-            case (39): $pacmanImg.css({
-                'left': (pacman.x += 10) + 'px'
-            });
-                break;
-            case 40: $pacmanImg.css({
-                'top': (pacman.y += 10) + 'px'
-            });
-                break;
+        console.log(score)
+
+    }
+
+    function moveGhosts() {
+
+    }
+
+    //1 is wall, 2 coin, 3 ground and 4 pacman
+
+    var map = [
+        [1,1,1,1,1,1,1,1,1,1,1,1,1],
+        [1,2,2,2,2,2,1,2,2,2,2,2,1],
+        [1,2,1,1,1,2,1,2,1,1,1,2,1],
+        [1,2,1,5,2,2,2,2,2,2,1,2,1],
+        [1,2,2,2,1,1,4,1,5,2,2,2,1],
+        [1,2,1,5,2,2,2,2,2,2,1,2,1],
+        [1,2,1,1,2,2,1,2,2,1,1,2,1],
+        [1,2,2,2,2,2,1,2,2,5,2,2,1],
+        [1,1,1,1,1,1,1,1,1,1,1,1,1]
+    ];
+
+    var element = document.getElementById('realm');
+    function createWorld() {
+        element.innerHTML = '';
+        for (var y=0;y<map.length;y+=1) {
+            for (var x = 0;x<map[y].length;x+=1) {
+                if (map[y][x]===1) {
+                    element.innerHTML += '<div class="wall"></div>'
+                } else if (map[y][x]===2) {
+                    element.innerHTML += '<div class="coin"></div>'
+                } else if (map[y][x]===3) {
+                    element.innerHTML += '<div class="ground"></div>'
+                } else if (map[y][x]===4) {
+                    element.innerHTML += '<div class="pacman"></div>'
+                } else if (map[y][x]===5) {
+                    element.innerHTML += '<div class="ghost"></div>'
+                }
+            }
+            element.innerHTML += '<br>'
         }
     }
+    createWorld()
 });

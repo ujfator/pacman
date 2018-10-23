@@ -1,14 +1,33 @@
-.realm {
-    background-color: red;
-    border: 2px solid black;
-    height: 850px;
-    width: 1850px;
-    border-radius: 50px;
+#realm {
 }
-#pacman {
+.pacman {
     height: 50px;
     width: 50px;
-    position: relative;
-    left: 20px;
-    top: 10px;
+    background-image: url("pacman1.png");
+    display: inline-block;
+}
+.wall {
+    height: 50px;
+    width: 50px;
+    background-image: url("wall.png");
+    display: inline-block;
+}
+.coin {
+    height: 50px;
+    width: 50px;
+    display: inline-block;
+    background-image: url("coin.png");
+
+}
+.ghost {
+    height: 50px;
+    width: 50px;
+    display: inline-block;
+    background-image: url("ghost1.png");
+}
+.ground {
+    height: 50px;
+    width: 50px;
+    display: inline-block;
+    background-image: url("bg.png");
 }
