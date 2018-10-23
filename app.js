@@ -9,15 +9,12 @@ $(document).ready(function () {
         y: 4
     };
 
-    var ghost = {
-    };
-
     function handleTyping(event) {
         switch (event.which) {
             case (37): // PACMAN MOVE LEFT
                 if (map[pacman.y][pacman.x-1] !== 1){
                     map[pacman.y][pacman.x] = 3;
-                    pacman.x = pacman.x - 1;
+                    pacman.x -= 1;
                     map[pacman.y][pacman.x] = 4;
                     if ((map[pacman.y][pacman.x-1] === 2)) {
                         score++
@@ -27,7 +24,7 @@ $(document).ready(function () {
             case (38): // PACMAN MOVE UP
                 if ( map[pacman.y-1][pacman.x] !== 1){
                     map[pacman.y][pacman.x] = 3;
-                    pacman.y = pacman.y - 1;
+                    pacman.y -= 1;
                     map[pacman.y][pacman.x] = 4;
                     if ((map[pacman.y-1][pacman.x] === 2)) {
                         score++
@@ -37,7 +34,7 @@ $(document).ready(function () {
             case (39): // PACMAN MOVE RIGHT
                 if ( map[pacman.y][pacman.x+1] !== 1){
                     map[pacman.y][pacman.x] = 3;
-                    pacman.x = pacman.x + 1;
+                    pacman.x += 1;
                     map[pacman.y][pacman.x] = 4;
                     if ((map[pacman.y][pacman.x+1] === 2)) {
                         score++
@@ -47,11 +44,12 @@ $(document).ready(function () {
             case (40): // PACMAN MOVE DOWN
                 if ( map[pacman.y+1][pacman.x] !== 1){
                     map[pacman.y][pacman.x] = 3;
-                    pacman.y = pacman.y + 1;
+                    pacman.y += 1;
                     map[pacman.y][pacman.x] = 4;
                     if ((map[pacman.y+1][pacman.x] === 2)) {
                         score++
                     }
+                    moveGhosts();
                     createWorld();
                 } break;
         }
@@ -59,8 +57,25 @@ $(document).ready(function () {
 
     }
 
-    function moveGhosts() {
+    var ghost = {
+        x: 3,
+        y: 3
+    };
 
+    function moveGhosts() {
+        if (map[ghost.y][ghost.x+1] !== 1) {
+            map[ghost.y][ghost.x] = 3;
+            ghost.x += 1;
+            map[ghost.y][ghost.x] = 5;
+            console.log(ghost);
+            createWorld()
+        } else if (map[ghost.y][ghost.x-1] !== 1) {
+            map[ghost.y][ghost.x] = 3;
+            ghost.x -= 1;
+            map[ghost.y][ghost.x] = 5;
+            console.log(ghost);
+            createWorld()
+        }
     }
 
     //1 is wall, 2 coin, 3 ground and 4 pacman
@@ -70,10 +85,10 @@ $(document).ready(function () {
         [1,2,2,2,2,2,1,2,2,2,2,2,1],
         [1,2,1,1,1,2,1,2,1,1,1,2,1],
         [1,2,1,5,2,2,2,2,2,2,1,2,1],
-        [1,2,2,2,1,1,4,1,5,2,2,2,1],
-        [1,2,1,5,2,2,2,2,2,2,1,2,1],
+        [1,2,2,2,1,1,4,1,2,2,2,2,1],
+        [1,2,1,2,2,2,2,2,2,2,1,2,1],
         [1,2,1,1,2,2,1,2,2,1,1,2,1],
-        [1,2,2,2,2,2,1,2,2,5,2,2,1],
+        [1,2,2,2,2,2,1,2,2,2,2,2,1],
         [1,1,1,1,1,1,1,1,1,1,1,1,1]
     ];
 
