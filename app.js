@@ -49,10 +49,10 @@ $(document).ready(function () {
                     if ((map[pacman.y+1][pacman.x] === 2)) {
                         score++
                     }
-                    moveGhosts();
                     createWorld();
                 } break;
         }
+        moveGhosts();
         console.log(score)
 
     }
@@ -63,17 +63,31 @@ $(document).ready(function () {
     };
 
     function moveGhosts() {
-        if (map[ghost.y][ghost.x+1] !== 1) {
+        var numero = Math.floor(Math.random() * 4) + 1;
+        console.log('random numero from 1 to 4', numero);
+        if (numero === 1 && map[ghost.y][ghost.x+1] !== 1) {
             map[ghost.y][ghost.x] = 3;
             ghost.x += 1;
             map[ghost.y][ghost.x] = 5;
-            console.log(ghost);
+            console.log(ghost, 'x+1', numero = 1 && map[ghost.y][ghost.x+1] !== 1);
             createWorld()
-        } else if (map[ghost.y][ghost.x-1] !== 1) {
+        } else if (numero === 2 && map[ghost.y][ghost.x-1] !== 1) {
             map[ghost.y][ghost.x] = 3;
             ghost.x -= 1;
             map[ghost.y][ghost.x] = 5;
-            console.log(ghost);
+            console.log(ghost, 'x-1');
+            createWorld()
+        } else if (numero === 3 && map[ghost.y+1][ghost.x] !== 1) {
+            map[ghost.y][ghost.x] = 3;
+            ghost.y += 1;
+            map[ghost.y][ghost.x] = 5;
+            console.log(ghost, 'y+1');
+            createWorld()
+        } else if (numero === 4 && map[ghost.y-1][ghost.x] !== 1) {
+            map[ghost.y][ghost.x] = 3;
+            ghost.y -= 1;
+            map[ghost.y][ghost.x] = 5;
+            console.log(ghost, 'y-1');
             createWorld()
         }
     }
@@ -85,7 +99,7 @@ $(document).ready(function () {
         [1,2,2,2,2,2,1,2,2,2,2,2,1],
         [1,2,1,1,1,2,1,2,1,1,1,2,1],
         [1,2,1,5,2,2,2,2,2,2,1,2,1],
-        [1,2,2,2,1,1,4,1,2,2,2,2,1],
+        [1,2,2,2,1,1,4,1,1,2,2,2,1],
         [1,2,1,2,2,2,2,2,2,2,1,2,1],
         [1,2,1,1,2,2,1,2,2,1,1,2,1],
         [1,2,2,2,2,2,1,2,2,2,2,2,1],
